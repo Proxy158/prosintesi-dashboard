@@ -3,78 +3,68 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Prosintesi Partner — Diventa Agente</title>
+  <title>Saturata CRM</title>
   <link rel="stylesheet" href="style.css">
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.0/dist/umd/supabase.min.js"></script>
 </head>
 <body>
-  <div class="container">
-    <div class="card">
-      <div class="brand">
-        <div class="logo">🔷</div>
-        <h1>Prosintesi <span>Partner</span></h1>
-      </div>
-      <p class="subtitle">Compila il form per diventare agente affiliato. Ti contatteremo entro 24h.</p>
 
-      <form id="partner-form">
-        <h3>🏢 Dati Attività</h3>
-        <div class="grid-2">
-          <input type="text" name="ragione_sociale" placeholder="Ragione Sociale *" required>
-          <input type="text" name="p_iva" placeholder="Partita IVA">
-        </div>
-        <input type="text" name="tipo_attivita" placeholder="Tipo attività (es. Agenzia immobiliare) *" required>
-        <div class="grid-2">
-          <input type="text" name="provincia" placeholder="Provincia *" required>
-          <input type="text" name="citta" placeholder="Città *" required>
-        </div>
-        <input type="text" name="indirizzo_attivita" placeholder="Indirizzo attività *" required>
-        <input type="url" name="sito_web" placeholder="Sito web (opzionale)">
-
-        <h3>🧑‍💼 Dati Referente</h3>
-        <div class="grid-2">
-          <input type="text" name="nome" placeholder="Nome *" required>
-          <input type="text" name="cognome" placeholder="Cognome *" required>
-        </div>
-        <div class="grid-2">
-          <input type="email" name="email" placeholder="Email *" required>
-          <input type="tel" name="telefono" placeholder="Telefono *" required>
-        </div>
-
-        <h3>🛠️ Servizi che vuoi proporre</h3>
-        <div class="checkbox-group">
-          <label><input type="checkbox" name="servizi" value="immobiliare"> 🏠 Immobiliare</label>
-          <label><input type="checkbox" name="servizi" value="fotovoltaico"> ☀️ Fotovoltaico</label>
-          <label><input type="checkbox" name="servizi" value="cessione_quinto"> 💰 Cessione del Quinto</label>
-          <label><input type="checkbox" name="servizi" value="mutui"> 🏦 Mutui</label>
-          <label><input type="checkbox" name="servizi" value="climatizzazione"> ❄️ Climatizzazione</label>
-          <label><input type="checkbox" name="servizi" value="efficienza_energetica"> 🌿 Efficienza Energetica</label>
-        </div>
-
-        <h3>📝 Note</h3>
-        <textarea name="note" rows="3" placeholder="Messaggio o informazioni aggiuntive (opzionale)"></textarea>
-
-        <label class="privacy">
-          <input type="checkbox" name="privacy" required>
-          Accetto la <a href="#" target="_blank">Privacy Policy</a> e il trattamento dei dati *
-        </label>
-
-        <button type="submit" id="submit-btn">
-          <span class="btn-text">Invia richiesta</span>
-          <span class="btn-loader" style="display:none">⏳ Invio in corso...</span>
-        </button>
-      </form>
-
-      <div id="success-msg" class="success" style="display:none">
-        <div class="success-icon">✅</div>
-        <h3>Richiesta inviata!</h3>
-        <p>Ti contatteremo entro 24 ore per attivare la tua collaborazione.</p>
-        <button onclick="location.reload()" class="btn-secondary">Invia un'altra richiesta</button>
-      </div>
-
-      <div id="error-msg" class="error" style="display:none"></div>
+  <!-- LOGIN -->
+  <div class="login-screen" id="login-screen">
+    <div class="login-box">
+      <h1>🔷 Saturata <span style="color:var(--primary)">CRM</span></h1>
+      <p>Gestione lead, contratti e agenti</p>
+      <input type="password" id="login-pwd" placeholder="Password admin" onkeydown="if(event.key==='Enter')doLogin()">
+      <button onclick="doLogin()">Accedi</button>
+      <div class="login-error" id="login-error">Password errata</div>
     </div>
   </div>
 
-  <script src="script.js"></script>
+  <!-- APP -->
+  <div class="app" id="app">
+    <aside class="sidebar">
+      <div class="brand"><div class="dot"></div><span>Saturata</span></div>
+      <nav>
+        <a href="#" data-view="dashboard" class="active" onclick="setView('dashboard'); return false;">
+          <span>📊</span> <span>Dashboard</span>
+        </a>
+        <a href="#" data-view="leads" onclick="setView('leads'); return false;">
+          <span>👤</span> <span>Lead</span>
+        </a>
+        <a href="#" data-view="agents" onclick="setView('agents'); return false;">
+          <span>🧑‍💼</span> <span>Agenti</span>
+        </a>
+      </nav>
+      <div class="logout">
+        <button onclick="doLogout()">🚪 <span>Esci</span></button>
+      </div>
+    </aside>
+
+    <div class="main">
+      <div class="header">
+        <h2 id="page-title">Dashboard</h2>
+        <div class="user">Admin · Saturata CRM</div>
+      </div>
+      <div class="content" id="content">
+        <div class="loading">Caricamento...</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DRAWER DETTAGLIO LEAD -->
+  <div class="drawer-overlay" id="drawer-overlay" onclick="closeDrawer()"></div>
+  <div class="drawer" id="drawer">
+    <div class="drawer-header">
+      <h3 id="drawer-title">Dettaglio Lead</h3>
+      <button class="close-btn" onclick="closeDrawer()">✕</button>
+    </div>
+    <div class="drawer-body" id="drawer-body"></div>
+    <div class="drawer-footer">
+      <button class="btn btn-ghost" onclick="closeDrawer()">Chiudi</button>
+      <button class="btn btn-primary" onclick="saveLeadChanges()">Salva modifiche</button>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
 </body>
 </html>
