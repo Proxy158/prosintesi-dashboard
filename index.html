@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Saturata — Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.0/dist/umd/supabase.min.js"></script>
+</head>
+<body>
+
+  <!-- LOGIN -->
+  <div class="login-screen" id="login-screen">
+    <div class="login-box">
+      <h1>🔷 <span style="color:var(--primary)">Saturata</span></h1>
+      <p>Dashboard di controllo — Fase 2</p>
+      <input type="password" id="login-pwd" placeholder="Password admin" onkeydown="if(event.key==='Enter')doLogin()">
+      <button onclick="doLogin()">Accedi</button>
+      <div class="login-error" id="login-error">Password errata</div>
+    </div>
+  </div>
+
+  <!-- APP -->
+  <div class="app" id="app">
+    <aside class="sidebar">
+      <div class="brand">🔷 <span>Saturata</span></div>
+      <nav>
+        <a href="#" data-view="dashboard" class="active" onclick="setView('dashboard'); return false;">
+          <span>📊</span> <span>Dashboard</span>
+        </a>
+        <a href="#" data-view="leads" onclick="setView('leads'); return false;">
+          <span>👤</span> <span>Lead</span>
+        </a>
+        <a href="#" data-view="agents" onclick="setView('agents'); return false;">
+          <span>🧑‍💼</span> <span>Agenti</span>
+        </a>
+      </nav>
+      <div class="logout">
+        <button onclick="doLogout()">🚪 <span>Esci</span></button>
+      </div>
+    </aside>
+
+    <div class="main">
+      <div class="header">
+        <h2 id="page-title">Dashboard</h2>
+        <div class="user">Admin · Saturata</div>
+      </div>
+      <div class="content" id="content">
+        <div class="loading">Caricamento...</div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

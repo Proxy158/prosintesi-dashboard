@@ -1,0 +1,181 @@
+/* Saturata Dashboard */
+:root {
+  --bg: #0f172a;
+  --surface: #1e293b;
+  --surface-hover: #334155;
+  --text: #f1f5f9;
+  --text-muted: #94a3b8;
+  --primary: #3b82f6;
+  --primary-hover: #2563eb;
+  --success: #22c55e;
+  --warning: #f59e0b;
+  --danger: #ef4444;
+  --border: #334155;
+  --radius: 10px;
+  --shadow: 0 4px 6px -1px rgba(0,0,0,0.3);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+/* Login */
+.login-screen {
+  display: flex; align-items: center; justify-content: center;
+  min-height: 100vh; background: var(--bg);
+}
+.login-box {
+  background: var(--surface); padding: 40px; border-radius: var(--radius);
+  width: 100%; max-width: 380px; box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+}
+.login-box h1 {
+  font-size: 1.5rem; margin-bottom: 8px; text-align: center;
+}
+.login-box p {
+  color: var(--text-muted); text-align: center; margin-bottom: 24px; font-size: 0.9rem;
+}
+.login-box input {
+  width: 100%; padding: 12px 14px; margin-bottom: 14px;
+  background: var(--bg); border: 1px solid var(--border); border-radius: 8px;
+  color: var(--text); font-size: 1rem; outline: none;
+}
+.login-box input:focus { border-color: var(--primary); }
+.login-box button {
+  width: 100%; padding: 12px; background: var(--primary); color: white;
+  border: none; border-radius: 8px; font-size: 1rem; font-weight: 600; cursor: pointer;
+}
+.login-box button:hover { background: var(--primary-hover); }
+.login-error {
+  color: var(--danger); text-align: center; margin-top: 10px; font-size: 0.85rem; display: none;
+}
+
+/* Layout */
+.app { display: none; }
+.app.active { display: flex; min-height: 100vh; }
+
+.sidebar {
+  width: 240px; background: var(--surface); border-right: 1px solid var(--border);
+  display: flex; flex-direction: column; padding: 20px 0;
+}
+.sidebar .brand {
+  font-size: 1.3rem; font-weight: 700; padding: 0 24px 20px; letter-spacing: -0.5px;
+}
+.sidebar .brand span { color: var(--primary); }
+.sidebar nav a {
+  display: flex; align-items: center; gap: 12px;
+  padding: 12px 24px; color: var(--text-muted); text-decoration: none; font-size: 0.95rem;
+  border-left: 3px solid transparent; transition: all 0.15s;
+}
+.sidebar nav a:hover, .sidebar nav a.active {
+  background: rgba(59,130,246,0.08); color: var(--text); border-left-color: var(--primary);
+}
+.sidebar .logout {
+  margin-top: auto; padding: 20px 24px;
+}
+.sidebar .logout button {
+  width: 100%; padding: 10px; background: transparent; border: 1px solid var(--border);
+  color: var(--text-muted); border-radius: 8px; cursor: pointer; font-size: 0.9rem;
+}
+.sidebar .logout button:hover { color: var(--danger); border-color: var(--danger); }
+
+.main {
+  flex: 1; display: flex; flex-direction: column; overflow: hidden;
+}
+.header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 20px 28px; border-bottom: 1px solid var(--border); background: var(--surface);
+}
+.header h2 { font-size: 1.2rem; font-weight: 600; }
+.header .user { color: var(--text-muted); font-size: 0.9rem; }
+
+.content {
+  flex: 1; padding: 28px; overflow-y: auto;
+}
+
+/* KPI */
+.kpi-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 28px;
+}
+.kpi-card {
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 20px; box-shadow: var(--shadow);
+}
+.kpi-card .label { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+.kpi-card .value { font-size: 1.8rem; font-weight: 700; }
+.kpi-card .value.success { color: var(--success); }
+.kpi-card .value.warning { color: var(--warning); }
+.kpi-card .value.danger { color: var(--danger); }
+
+/* Filtri */
+.filters {
+  display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap;
+}
+.filters select, .filters input {
+  background: var(--surface); border: 1px solid var(--border); color: var(--text);
+  padding: 10px 14px; border-radius: 8px; font-size: 0.9rem; outline: none; min-width: 160px;
+}
+.filters select:focus, .filters input:focus { border-color: var(--primary); }
+
+/* Tabelle */
+.table-wrap {
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+  overflow: hidden; box-shadow: var(--shadow);
+}
+table {
+  width: 100%; border-collapse: collapse; font-size: 0.9rem;
+}
+th, td { padding: 14px 18px; text-align: left; }
+th {
+  background: rgba(255,255,255,0.03); font-weight: 600; color: var(--text-muted);
+  font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.5px;
+}
+tr:not(:last-child) td { border-bottom: 1px solid var(--border); }
+tr:hover td { background: rgba(255,255,255,0.02); }
+.badge {
+  display: inline-block; padding: 4px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 600;
+}
+.badge.nuovo { background: rgba(148,163,184,0.15); color: var(--text-muted); }
+.badge.assegnato { background: rgba(34,197,94,0.15); color: var(--success); }
+.badge.contattato { background: rgba(59,130,246,0.15); color: var(--primary); }
+.badge.attivo { background: rgba(34,197,94,0.15); color: var(--success); }
+.badge.in_prova { background: rgba(245,158,11,0.15); color: var(--warning); }
+.badge.inattivo { background: rgba(239,68,68,0.15); color: var(--danger); }
+
+/* Toggle switch */
+.toggle {
+  appearance: none; width: 40px; height: 22px; background: var(--border); border-radius: 20px;
+  position: relative; cursor: pointer; outline: none; transition: background 0.2s;
+}
+.toggle::after {
+  content: ''; position: absolute; top: 2px; left: 2px; width: 18px; height: 18px;
+  background: white; border-radius: 50%; transition: transform 0.2s;
+}
+.toggle:checked { background: var(--success); }
+.toggle:checked::after { transform: translateX(18px); }
+
+/* Input inline */
+input.inline {
+  background: var(--bg); border: 1px solid var(--border); color: var(--text);
+  padding: 6px 10px; border-radius: 6px; font-size: 0.85rem; width: 80px;
+}
+
+/* Loading */
+.loading {
+  text-align: center; padding: 40px; color: var(--text-muted);
+}
+.empty {
+  text-align: center; padding: 40px; color: var(--text-muted);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .sidebar { width: 64px; }
+  .sidebar .brand, .sidebar nav a span, .sidebar .logout span { display: none; }
+  .sidebar nav a { justify-content: center; padding: 14px 0; }
+  .kpi-grid { grid-template-columns: 1fr 1fr; }
+}
