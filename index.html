@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Saturata — Dashboard</title>
+  <title>Saturata CRM</title>
   <link rel="stylesheet" href="style.css">
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.0/dist/umd/supabase.min.js"></script>
 </head>
@@ -12,8 +12,8 @@
   <!-- LOGIN -->
   <div class="login-screen" id="login-screen">
     <div class="login-box">
-      <h1>🔷 <span style="color:var(--primary)">Saturata</span></h1>
-      <p>Dashboard di controllo — Fase 2</p>
+      <h1>🔷 Saturata <span style="color:var(--primary)">CRM</span></h1>
+      <p>Gestione lead, contratti e agenti</p>
       <input type="password" id="login-pwd" placeholder="Password admin" onkeydown="if(event.key==='Enter')doLogin()">
       <button onclick="doLogin()">Accedi</button>
       <div class="login-error" id="login-error">Password errata</div>
@@ -23,7 +23,7 @@
   <!-- APP -->
   <div class="app" id="app">
     <aside class="sidebar">
-      <div class="brand">🔷 <span>Saturata</span></div>
+      <div class="brand"><div class="dot"></div><span>Saturata</span></div>
       <nav>
         <a href="#" data-view="dashboard" class="active" onclick="setView('dashboard'); return false;">
           <span>📊</span> <span>Dashboard</span>
@@ -43,11 +43,25 @@
     <div class="main">
       <div class="header">
         <h2 id="page-title">Dashboard</h2>
-        <div class="user">Admin · Saturata</div>
+        <div class="user">Admin · Saturata CRM</div>
       </div>
       <div class="content" id="content">
         <div class="loading">Caricamento...</div>
       </div>
+    </div>
+  </div>
+
+  <!-- DRAWER DETTAGLIO LEAD -->
+  <div class="drawer-overlay" id="drawer-overlay" onclick="closeDrawer()"></div>
+  <div class="drawer" id="drawer">
+    <div class="drawer-header">
+      <h3 id="drawer-title">Dettaglio Lead</h3>
+      <button class="close-btn" onclick="closeDrawer()">✕</button>
+    </div>
+    <div class="drawer-body" id="drawer-body"></div>
+    <div class="drawer-footer">
+      <button class="btn btn-ghost" onclick="closeDrawer()">Chiudi</button>
+      <button class="btn btn-primary" onclick="saveLeadChanges()">Salva modifiche</button>
     </div>
   </div>
 
